@@ -4,4 +4,4 @@ python:
 
 # command to run tests
 script:
- - python repo_parser.py
+ - python -m unittest repo_parser_test
