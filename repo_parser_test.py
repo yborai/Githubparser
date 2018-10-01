@@ -7,7 +7,7 @@ from repo_parser import get_repos, get_commit_count
 # https://docs.python.org/3/library/unittest.html has a nice description of the framework
 
 @patch('repo_parser.get_repos')
-def mock_get_repos(self, username):
+def mock_get_repos(self):
     repos = [
         'ATTCodingChallenge', 'CodingChallengeATT', 'Githubparser',
         'Hello-World', 'helloworld', 'proj_euler', 'quaxo',
@@ -17,7 +17,7 @@ def mock_get_repos(self, username):
     return(repos)
 
 @patch('repo_parser.get_commit_count')
-def mock_get_commit_count(self, username, repo):
+def mock_get_commit_count(self):
     commits = {
         "ATTCodingChallenge": 2,
         "CodingChallengeATT": 2,
@@ -31,16 +31,16 @@ def mock_get_commit_count(self, username, repo):
         "zephyr": 30
     }
 
-    return commits[repo]
+    return commits['helloworld']
 
 class TestTriangles(unittest.TestCase):
     # define multiple sets of tests as functions with names that begin
 
     def testRepos(self): 
-        self.assertEqual(mock_get_repos('yborai')[-1],'zephyr','First repo created should be zephyr')
+        self.assertEqual(mock_get_repos()[-1],'zephyr','First repo created should be zephyr')
 
     def testCommits(self): 
-        self.assertEqual(get_commit_count('yborai', 'helloworld'), 4, 'Response should be 4.')
+        self.assertEqual(mock_get_commit_count(), 4, 'Response should be 4.')
 
 if __name__ == '__main__':
     print('Running unit tests')
